@@ -17,24 +17,6 @@ class Schooler(Turtle):
         self.velocity = Vec2D(0,0)
         Schooler.swarm.append(self)
 
-    def getNewHeading(self):
-        minAngle = 999
-        for other in Schooler.swarm:
-            if self != other:
-                head = self.towards(other) - self.heading()
-                if cos(radians(head)) > 0:
-                    if head < minAngle:
-                        minAngle = head
-        if minAngle == 999:
-            self.newHead = self.heading()
-        else:
-            self.newHead = minAngle+self.heading()
-
-    def setHeadingAndMove(self):
-        self.setheading(self.newHead)
-        self.newHead = None
-        self.forward(10)
-
     def moveAllBoidsToNewPositions(self):
         v1 = Vec2D(0,0)
         v2 = Vec2D(0,0)
