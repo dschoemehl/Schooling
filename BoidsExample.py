@@ -15,6 +15,8 @@ class Schooler(Turtle):
         #self.down()
         self.newHead = None
         self.velocity = Vec2D(0,0)
+        self.neighbordist = 50
+        self.neighbors = []
         Schooler.swarm.append(self)
 
     def moveAllBoidsToNewPositions(self):
@@ -24,13 +26,16 @@ class Schooler(Turtle):
         v4 = Vec2D(0,0)
         windV = Vec2D(0,0)
 
+        del self.neighbors[:]
+        self.findNieghbors()
+
         v1 = self.rule1()
         v2 = self.rule2()
         v3 = self.rule3()
         v4 = self.bound_position()
 
         #limit the max velocity
-        vlimit = 10
+        vlimit = 2
 
 
         self.velocity = self.velocity + v1 + v2 + v3 + v4 + windV
@@ -42,19 +47,27 @@ class Schooler(Turtle):
         self.setheading(self.towards(self.pos() + self.velocity))
         self.setpos(self.pos() + self.velocity)
 
+    def findNieghbors(self):
+        for other in Schooler.swarm:
+            if self != other:
+                if abs(self.pos() - other.pos()) < self.neighbordist:
+                    self.neighbors.append(other)
+        print len(self.neighbors)
 
     def rule1(self):
         percievedCenter = Vec2D(0,0)
-        for other in Schooler.swarm:
-            if self != other:
-                percievedCenter += other.pos()
-        percievedCenter = Vec2D(percievedCenter[0]/(int(len(Schooler.swarm) - 1)), percievedCenter[1]/(int(len(Schooler.swarm) - 1)))
-        percievedCenter = (percievedCenter - self.pos())
+        print len(self.neighbors)
+        if(len(self.neighbors)):
+            for other in self.neighbors:
+                if self != other:
+                    percievedCenter += other.pos()
+            percievedCenter = Vec2D(percievedCenter[0]/(int(len(self.neighbors))), percievedCenter[1]/(int(len(self.neighbors))))
+            percievedCenter = (percievedCenter - self.pos())
         return percievedCenter * .01
 
     def rule2(self):
         repulsionVector = Vec2D(0,0)
-        for other in Schooler.swarm:
+        for other in self.neighbors:
             if self != other:
                 if abs(self.pos() - other.pos()) < 40:
                     repulsionVector = repulsionVector - (other.pos() - self.pos())
@@ -62,7 +75,7 @@ class Schooler(Turtle):
 
     def rule3(self):
         averageVelocity = Vec2D(0,0)
-        for other in Schooler.swarm:
+        for other in self.neighbors:
             if self !=other:
                 averageVelocity = averageVelocity + other.velocity
 
