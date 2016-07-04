@@ -15,7 +15,8 @@ class Schooler(Turtle):
         #self.down()
         self.newHead = None
         self.velocity = Vec2D(0,0)
-        self.neighbordist = 50
+        self.neighbordist = 100
+        self.viewangle = 90
         self.neighbors = []
         Schooler.swarm.append(self)
 
@@ -51,8 +52,12 @@ class Schooler(Turtle):
         for other in Schooler.swarm:
             if self != other:
                 if abs(self.pos() - other.pos()) < self.neighbordist:
-                    self.neighbors.append(other)
-        print len(self.neighbors)
+                    head = self.towards(other) - self.heading()
+                    #if cos(radians(head)) < 15:
+                    print abs(head)
+                    if abs(head) < self.viewangle:
+                        self.neighbors.append(other)
+        #print len(self.neighbors)
 
     def rule1(self):
         percievedCenter = Vec2D(0,0)
