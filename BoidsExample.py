@@ -44,7 +44,9 @@ class Schooler(Turtle):
         if (self.mag(self.velocity) > vlimit):
             self.velocity = self.unit(self.velocity) * vlimit
 
-        #self.color( self.pos()[0]%255,0,0)
+        #self.color((int(self.pos()[0]%254),0,0), (int(self.pos()[0]%254),0,0))
+
+        #self.color( (10, 0, 0), (10, 0, 0))
         self.setheading(self.towards(self.pos() + self.velocity))
         self.setpos(self.pos() + self.velocity)
 

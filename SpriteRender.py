@@ -8,7 +8,7 @@ class SpriteRender(Sprite):
         super(SpriteRender, self).__init__(image, batch=batch)
         self.actor = actor
         self.set_position(self.actor.position[0],self.actor.position[1])
-        self.label = Label('Task',font_size=10,x=self.actor.position[0],y=self.actor.position[1],batch=batch,anchor_x='center',anchor_y='center')
+        self.label = Label('Fish',font_size=10,x=self.actor.position[0],y=self.actor.position[1],batch=batch,anchor_x='center',anchor_y='center')
         self.scale = .5
         self.opacity = 125
         self.min_scale = 1
