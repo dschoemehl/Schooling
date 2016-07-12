@@ -1,4 +1,4 @@
-from math import cos, radians, sqrt, pow, fmod
+from math import cos, radians, sqrt, pow, fmod, acos, degrees
 from turtle import Vec2D
 
 class Actor():
@@ -8,24 +8,19 @@ class Actor():
         self.destination = Vec2D(0,0)
         self.movevector = Vec2D(0,0)
         self.movespeed = movespeed
+        self.heading = 0.0
 
     def set_destination(self,dest):
         change = self.destination - self.position
         #print change
         self.destination = dest
 
-        #dx = self.destination[0] - self.position[0]
-        #dy = self.destination[1] - self.position[1]
-
-        #print 'dx:' + str(dx) + ', dy:' + str(dy)
-        #length = math.sqrt(dx*dx + dy*dy)
-        #length = mag(change)
-        #print str(length)
-
-       # self.movevector[0] = dx/length
-       # self.movevector[1] = dy/length
-
         self.movevector = self.unit(change)
+
+        #set heading
+        dotprod = self.dot(Vec2D(0,1), self.movevector)
+        self.heading = degrees(acos(dotprod))
+        print self.heading
 
         #print 'movevector[0]:' +str(self.movevector[0]) + 'movevector[1]:' +str(self.movevector[1])
 
@@ -43,3 +38,6 @@ class Actor():
             return 0
         else:
             return Vec2D(vec[0] / magnitude, vec[1] / magnitude)
+
+    def dot(self, vec1, vec2):
+        return (vec1[0]*vec2[0]) + (vec1[1]*vec2[1])

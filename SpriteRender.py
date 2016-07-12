@@ -41,4 +41,4 @@ class SpriteRender(Sprite):
                 self.scale = self.min_scale
                 self.pulse_increment *= -1
 
-
+        self._set_rotation(self.actor.heading)

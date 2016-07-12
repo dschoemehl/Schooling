@@ -17,7 +17,7 @@ class SchoolingActor(Actor):
         self.vlimit = 2
         self.repulsionforce = 2
         self.minNieghborDist = 100
-        self.neighbordist = 1000
+        self.neighbordist = 100
         self.neighbors = []
         SchoolingActor.swarm.append(self)
 
@@ -35,7 +35,7 @@ class SchoolingActor(Actor):
         #print 'v1 = ' + str(v1)
         v2 = self.rule2() * self.repulsionforce
         #v3 = self.rule3()
-        #v4 = self.bound_position()
+        v4 = self.bound_position()
 
         self.velocity = self.velocity + v1 + v2 + v3 + v4 + windV
 
@@ -76,3 +76,23 @@ class SchoolingActor(Actor):
                 if abs(self.position - other.position) < self.minNieghborDist:
                     repulsionVector = -(other.position - self.position)
         return repulsionVector
+
+    def bound_position(self):
+        xmin = 0
+        xmax = 800
+        ymin = 0
+        ymax = 600
+        xadj = 0
+        yadj = 0
+
+        if self.position[0] < xmin:
+            xadj = 10
+        if self.position[0] > xmax:
+            xadj = -10
+        if self.position[1] < ymin:
+            yadj = 10
+        if self.position[1] > ymax:
+            yadj = -10
+
+        # print xadj, yadj
+        return Vec2D(xadj, yadj)
