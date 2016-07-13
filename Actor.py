@@ -20,7 +20,9 @@ class Actor():
         #set heading
         dotprod = self.dot(Vec2D(0,1), self.movevector)
         self.heading = degrees(acos(dotprod))
-        print self.heading
+        if(self.movevector[0] < 0):
+            self.heading = -self.heading
+        #print self.heading
 
         #print 'movevector[0]:' +str(self.movevector[0]) + 'movevector[1]:' +str(self.movevector[1])
 

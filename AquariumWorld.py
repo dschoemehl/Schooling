@@ -15,7 +15,7 @@ WINDOW_HEIGHT = 600
 
 controller = AquariumController()
 
-swarmSize = 30
+swarmSize = 10
 
 for i in range(swarmSize):
     SchoolingActor( random.randrange(0, WINDOW_WIDTH),
