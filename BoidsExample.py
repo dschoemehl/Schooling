@@ -15,8 +15,8 @@ class Schooler(Turtle):
         #self.down()
         self.newHead = None
         self.velocity = Vec2D(0,0)
-        self.neighbordist = 100
-        self.viewangle = 90
+        self.neighbordist = 200
+        self.viewangle = 45
         self.neighbors = []
         Schooler.swarm.append(self)
 
